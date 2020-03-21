@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const sessionList = ['2018W', '2019S', '2019W', '2020S'];
+const sessionList = generateSessionListFrom(2018);
 
 const connectionMap = {};
 
@@ -14,6 +14,24 @@ for (const session of sessionList) {
 		{ useNewUrlParser: true }
 	);
 	connectionMap[session] = connection;
+}
+
+function generateSessionListFrom(startingYear) {
+    const currentYear = new Date().getFullYear();
+    const years = [];
+    const sessions =[]
+    for (let i = startingYear; i <= currentYear; i++) {
+        if (i !== startingYear) {
+            years.push(i);
+            years.push(i);
+        } else {
+            years.push(i);
+        }
+    }
+    for (let i = 0; i < years.length; i++) {
+		sessions.push(i % 2 == 0 ? `${years[i]}W`: `${years[i]}S`);
+    }
+    return sessions;
 }
 
 module.exports = connectionMap;
